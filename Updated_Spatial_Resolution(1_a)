@@ -1,0 +1,17 @@
+import cv2 as cv
+import numpy as np
+img=cv.imread('Image/srity.jpg')
+img=cv.resize(img,(512,512))
+gray_img=cv.cvtColor(img,cv.COLOR_BGR2GRAY)
+resize_image=cv.resize(gray_img,(512,512))
+cv.imshow("image",img)
+cv.waitKey(1000)
+cv.imshow("image",resize_image)
+cv.waitKey(1000)
+resize_image=gray_img.copy()
+while resize_image.shape[0]>=10 and resize_image.shape[1]>=10:
+    resize_image=cv.resize(resize_image,(resize_image.shape[1]//2,resize_image.shape[0]//2))
+    resize_display=cv.resize(resize_image,(512,512))
+    cv.imshow('Image', resize_display)
+    cv.waitKey(1000)
+cv.destroyAllWindows()
