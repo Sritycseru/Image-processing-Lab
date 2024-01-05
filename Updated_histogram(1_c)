@@ -1,0 +1,50 @@
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load the grayscale image (replace 'path_to_image' with the path to your image)
+image_path = 'Image/srity.jpg'
+img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+
+# Ensure the image is 512x512
+img = cv2.resize(img, (512, 512))
+
+# Display the original image
+plt.figure(figsize=(4, 4))
+plt.imshow(img, cmap='gray')
+plt.title("Original Image")
+plt.axis('off')
+plt.show()
+
+# Calculate and display the histogram of the image
+hist = cv2.calcHist([img], [0], None, [256], [0, 256])
+plt.figure()
+plt.plot(hist)
+plt.title("Histogram of the Image")
+plt.xlabel("Pixel Value")
+plt.ylabel("Frequency")
+plt.show()
+
+# Single threshold segmentation based on the histogram
+threshold_value = 120  # Set your threshold value here
+_, segmented_image = cv2.threshold(img, threshold_value, 255, cv2.THRESH_BINARY)
+
+# Display the segmented image
+plt.figure(figsize=(4, 4))
+plt.imshow(segmented_image, cmap='gray')
+plt.title("Segmented Image")
+plt.axis('off')
+plt.show()
+
+segmented_hist = np.zeros(256)
+
+for i in range(segmented_image.shape[0]):
+    for j in range(segmented_image.shape[1]):
+        segmented_hist[segmented_image[i, j]] += 1
+plt.figure(figsize=(4, 4))
+plt.plot(segmented_hist, color="black")
+plt.title("Histogram after Segmentation")
+plt.xlabel("Pixel Value")
+plt.ylabel("Frequency")
+
+plt.show()
