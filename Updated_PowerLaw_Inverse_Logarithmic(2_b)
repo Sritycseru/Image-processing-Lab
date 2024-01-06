@@ -1,0 +1,44 @@
+import cv2 as cv
+import numpy as np
+import matplotlib.pyplot as plt
+
+image = cv.imread("Image/srity.jpg", 0)
+
+logarithmic_image = image.copy()
+power_image = image.copy()
+row, col = image.shape
+
+gamma = 0.6  # Corrected variable name
+c = 255 / (np.log(1 + np.max(image)))  # Added closing parenthesis
+
+power_image = np.zeros((row, col))
+logarithmic_image = np.zeros((row, col))
+inverse_image = np.zeros((row, col))
+
+for i in range(row):
+    for j in range(col):
+        power_image[i, j] = (image[i, j] ** gamma)
+        logarithmic_image[i, j] = c * np.log(1 + image[i, j])
+        inverse_image[i, j] = np.exp(logarithmic_image[i, j] / c) - 1
+
+#Another way of find inverse logarithomic_image
+#logarithmic_image[i, j] = c * np.log(1 + image[i, j])
+
+# Calculating inverse image
+#logarithmic_image_normalized = logarithmic_image / c
+#inverse_image = np.exp(logarithmic_image_normalized) - 1
+
+plt.subplot(2, 2, 1)
+plt.imshow(image, cmap='gray')
+plt.title('Original Image')
+plt.subplot(2, 2, 2)
+plt.imshow(power_image, cmap='gray')
+plt.title('Power Image')
+plt.subplot(2, 2, 3)
+plt.imshow(logarithmic_image, cmap='gray')
+plt.title('Logarithmic Image')
+plt.subplot(2, 2, 4)
+plt.imshow(inverse_image, cmap='gray')
+plt.title('Inverse Image')
+plt.tight_layout()
+plt.show()
