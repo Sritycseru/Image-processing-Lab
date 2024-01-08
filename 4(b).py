@@ -30,7 +30,6 @@ for i in range(number_of_image):
     plt.subplot(3,3, i+1)
     plt.title(f'Img_with D0= {D0}')
     plt.imshow(lowpass_image, cmap='gray')
-    plt.tight_layout()
     D0 = D0 + 10
 
 plt.tight_layout()
