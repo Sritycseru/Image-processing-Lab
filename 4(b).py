@@ -19,9 +19,9 @@ for u in range(n):
     for v in range(m):
         lowpass_image[u, v] = np.sqrt((u - n / 2) ** 2 + (v - m / 2) ** 2)
 
-temporary_image = np.copy(lowpass_image)
+#temporary_image = np.copy(lowpass_image)
 for i in range(number_of_image):
-    lowpass_image = np.copy(temporary_image)
+   #lowpass_image = np.copy(temporary_image)
     lowpass_image = lowpass_image <= D0
     lowpass_image = lowpass_image * fft_image
 
